@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.1 (2026-06-10)
+
+### Changed
+
+- Updated mcp-server/README.md with UISchema overview and examples
+
+---
+
 ## v1.0.0 (2026-06-10)
 
 Initial public release.

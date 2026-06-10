@@ -1,6 +1,6 @@
 {
   "name": "@uischema/mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for UISchema — framework-agnostic UI description format for AI code generation",
   "type": "module",
   "bin": {

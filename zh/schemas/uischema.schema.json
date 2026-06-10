@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/open-ui-schema/schemas/uischema.schema.json",
   "title": "UISchema",
-  "description": "UI Schema v1.0.0 — Framework-agnostic JSON interface description format for AI code generation",
+  "description": "UI Schema v1.0.1 — Framework-agnostic JSON interface description format for AI code generation",
   "type": "object",
   "required": ["component"],
   "properties": {
