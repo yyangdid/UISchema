@@ -47,12 +47,29 @@ button "保存" [type=primary]
 | React + Material UI | `docs/framework-react-mui.md` |
 | Avalonia UI | `docs/framework-avalonia.md` |
 
+## MCP 服务器
+
+UISchema 提供了 MCP 服务器（`@uischema/mcp`），AI 助手可以直接读取规范、框架适配文档和示例。
+
+```json
+{
+  "mcpServers": {
+    "uischema": {
+      "command": "npx",
+      "args": ["-y", "@uischema/mcp"]
+    }
+  }
+}
+```
+
+**工具：** `read_uischema_spec` · `list_frameworks` · `read_framework_adapter` · `read_example`
+
 ## 快速开始
 
 1. 阅读 [UISchema.md](UISchema.md) 了解核心规范
 2. 查看 `examples/` 下的示例
 3. 选定目标框架，参考对应的 `docs/framework-*.md`
-4. 在提示词中告诉 AI：「请严格遵循 UISchema 规范生成代码」
+4. 配置 MCP 服务器（见上方）后在提示词中告诉 AI：「请严格遵循 UISchema 规范生成代码」
 
 ## 项目结构
 

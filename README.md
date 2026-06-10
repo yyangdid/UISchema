@@ -50,12 +50,29 @@ Both formats are equally understood by AI. Output:
 | React + Material UI | `docs/framework-react-mui.md` |
 | Avalonia UI | `docs/framework-avalonia.md` |
 
+## MCP Server
+
+UISchema provides an MCP server (`@uischema/mcp`) for AI assistants to read the specification, framework adapters, and examples directly.
+
+```json
+{
+  "mcpServers": {
+    "uischema": {
+      "command": "npx",
+      "args": ["-y", "@uischema/mcp"]
+    }
+  }
+}
+```
+
+**Tools:** `read_uischema_spec` · `list_frameworks` · `read_framework_adapter` · `read_example`
+
 ## Getting Started
 
 1. Read [UISchema.md](UISchema.md) for the core specification
 2. Browse `examples/` for usage samples
 3. Pick your target framework and read the corresponding `docs/framework-*.md`
-4. Tell the AI: "Follow the UISchema specification strictly when generating code"
+4. Configure the MCP server (see above) and ask the AI: "Follow the UISchema specification strictly when generating code"
 
 ## Project Structure
 
