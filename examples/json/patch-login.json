@@ -1,0 +1,80 @@
+{
+  "patch": [
+    {
+      "op": "prepend",
+      "selector": "form",
+      "description": "Prepend remember-me checkbox at the top of form",
+      "children": [
+        {
+          "component": "form-item",
+          "children": [
+            {
+              "component": "checkbox",
+              "props": { "text": "Remember me" },
+              "bindings": { "checked": "form.remember" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "before",
+      "selector": "form > form-item[2]",
+      "description": "Insert email between username and password",
+      "children": [
+        {
+          "component": "form-item",
+          "props": { "label": "Email", "prop": "email" },
+          "children": [
+            {
+              "component": "input",
+              "props": { "placeholder": "Please enter email" },
+              "bindings": { "value": "form.email" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "after",
+      "selector": "form > form-item[2]",
+      "description": "Insert captcha after password",
+      "children": [
+        {
+          "component": "form-item",
+          "props": { "label": "Captcha", "prop": "captcha" },
+          "children": [
+            {
+              "component": "input",
+              "props": { "placeholder": "Please enter captcha", "width": "120" },
+              "bindings": { "value": "form.captcha" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "append",
+      "selector": "card",
+      "description": "Append login button to card",
+      "children": [
+        {
+          "component": "button",
+          "props": { "text": "Login", "type": "primary" },
+          "events": { "click": "handleLogin" }
+        }
+      ]
+    },
+    {
+      "op": "replace",
+      "selector": "card",
+      "description": "Replace card title",
+      "children": [
+        {
+          "component": "card",
+          "props": { "header": "User Login", "width": "400" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "全屏页面根节点，占满整个浏览器窗口。",
+    "tags": [
+      "page",
+      "root"
+    ],
+    "remarks": [
+      "页面采用 Flex 布局。",
+      "所有组件均位于该页面容器内。"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "padding": "10px"
+  },
+  "children": [
+    {
+      "component": "checkbox",
+      "meta": {
+        "description": "位于页面左上角的复选框。",
+        "tags": [
+          "form",
+          "checkbox"
+        ],
+        "remarks": [
+          "保持左上角对齐。",
+          "用于演示 Checkbox 组件。"
+        ]
+      },
+      "props": {
+        "size": "small",
+        "text": "复选框"
+      },
+      "style": {
+        "width": "200px",
+        "color": "#f00"
+      },
+      "layout": {
+        "justify-self": "flex-start",
+        "align-self": "flex-start"
+      }
+    },
+    {
+      "component": "space",
+      "meta": {
+        "description": "位于页面右下角的操作按钮组容器。",
+        "tags": [
+          "action-group",
+          "footer"
+        ],
+        "remarks": [
+          "Space 负责管理子按钮之间的间距。",
+          "整个按钮组保持右下角对齐。",
+          "justify-self 为 UI Schema 自定义布局属性，不等同于 CSS Flex 标准属性。"
+        ]
+      },
+      "props": {
+        "size": "middle"
+      },
+      "layout": {
+        "justify-self": "flex-end",
+        "align-self": "flex-end"
+      },
+      "children": [
+        {
+          "component": "button",
+          "meta": {
+            "description": "确认按钮。",
+            "tags": [
+              "action",
+              "confirm"
+            ],
+            "remarks": [
+              "执行确认操作。"
+            ]
+          },
+          "props": {
+            "size": "small",
+            "type": "default",
+            "text": "确定"
+          }
+        },
+        {
+          "component": "button",
+          "meta": {
+            "description": "主要操作按钮。",
+            "tags": [
+              "action",
+              "primary"
+            ],
+            "remarks": [
+              "保持 primary 类型。",
+              "用于突出显示主要操作。"
+            ]
+          },
+          "props": {
+            "size": "small",
+            "type": "primary",
+            "text": "取消"
+          }
+        },
+        {
+          "component": "button",
+          "meta": {
+            "description": "应用当前设置但不关闭页面。",
+            "tags": [
+              "action",
+              "apply"
+            ],
+            "remarks": [
+              "执行应用操作。",
+              "不改变当前页面状态。"
+            ]
+          },
+          "props": {
+            "size": "small",
+            "type": "default",
+            "text": "应用"
+          }
+        }
+      ]
+    }
+  ]
+}

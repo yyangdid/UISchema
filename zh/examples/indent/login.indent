@@ -1,0 +1,29 @@
+# 用户登录
+page [flex, padding=0]
+    .meta 登录页面，居中展示登录表单卡片
+    .tags login, auth
+    .remark 表单整体垂直水平居中
+    .remark 登录失败时显示错误提示
+
+    .style justify-content=center, align-items=center
+
+    card "用户登录" [header=用户登录, style=width: 400px]
+        form [label-width=80px, model=loginForm]
+
+            form-item "用户名" [label=用户名, prop=username]
+                input [placeholder=请输入用户名]
+                    .bind value=loginForm.username
+
+            form-item "密码" [label=密码, prop=password]
+                input [type=password, placeholder=请输入密码]
+                    .bind value=loginForm.password
+
+            form-item
+                checkbox "记住密码"
+                    .bind checked=loginForm.remember
+
+            form-item
+                button "登录" [type=primary]
+                    .click handleLogin
+                button "重置"
+                    .click handleReset

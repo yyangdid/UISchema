@@ -1,0 +1,29 @@
+# User Login
+page [flex, padding=0]
+    .meta Login page, centered login form card
+    .tags login, auth
+    .remark Form vertically and horizontally centered
+    .remark Show error message on login failure
+
+    .style justify-content=center, align-items=center
+
+    card "User Login" [header=User Login, style=width: 400px]
+        form [label-width=80px, model=loginForm]
+
+            form-item "Username" [label=Username, prop=username]
+                input [placeholder=Please enter username]
+                    .bind value=loginForm.username
+
+            form-item "Password" [label=Password, prop=password]
+                input [type=password, placeholder=Please enter password]
+                    .bind value=loginForm.password
+
+            form-item
+                checkbox "Remember password"
+                    .bind checked=loginForm.remember
+
+            form-item
+                button "Login" [type=primary]
+                    .click handleLogin
+                button "Reset"
+                    .click handleReset

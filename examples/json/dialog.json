@@ -1,0 +1,106 @@
+{
+  "component": "dialog",
+  "meta": {
+    "description": "User details dialog, showing user info and action buttons",
+    "tags": ["dialog", "detail"],
+    "remarks": [
+      "Fetch user details when dialog opens",
+      "Layout top to bottom: title area, info display area, bottom action area"
+    ]
+  },
+  "props": {
+    "title": "User Details",
+    "width": "500px"
+  },
+  "bindings": {
+    "open": "detailDialogVisible"
+  },
+  "events": {
+    "close": "handleClose"
+  },
+  "children": [
+    {
+      "component": "card",
+      "meta": {
+        "description": "Basic info card",
+        "tags": ["info", "card"]
+      },
+      "props": {
+        "header": "Basic Info"
+      },
+      "children": [
+        {
+          "component": "row",
+          "props": { "gutter": 20 },
+          "children": [
+            {
+              "component": "col",
+              "props": { "span": 12 },
+              "children": [
+                {
+                  "component": "descriptions",
+                  "props": { "column": 1, "border": true },
+                  "children": [
+                    { "component": "descriptions-item", "props": { "label": "Username" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.username }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "Email" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.email }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "Phone" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.phone }}" } } ] }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "col",
+              "props": { "span": 12 },
+              "children": [
+                {
+                  "component": "descriptions",
+                  "props": { "column": 1, "border": true },
+                  "children": [
+                    { "component": "descriptions-item", "props": { "label": "Role" }, "children": [ { "component": "tag", "props": { "text": "{{ userDetail.role }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "Status" }, "children": [ { "component": "tag", "props": { "text": "{{ userDetail.status === 'enabled' ? 'Enabled' : 'Disabled' }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "Registration Time" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.createdAt }}" } } ] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "space",
+      "meta": {
+        "description": "Bottom action buttons",
+        "tags": ["action", "footer"],
+        "remarks": [
+          "Button group right-aligned",
+          "Confirm button is primary type"
+        ]
+      },
+      "props": {
+        "size": "middle"
+      },
+      "layout": {
+        "justify-self": "flex-end",
+        "align-self": "flex-end"
+      },
+      "children": [
+        {
+          "component": "button",
+          "props": { "text": "Edit", "type": "primary" },
+          "events": { "click": "handleEdit" }
+        },
+        {
+          "component": "button",
+          "props": { "text": "Disable Account", "type": "warning" },
+          "events": { "click": "handleDisable" }
+        },
+        {
+          "component": "button",
+          "props": { "text": "Close" },
+          "events": { "click": "handleClose" }
+        }
+      ]
+    }
+  ]
+}

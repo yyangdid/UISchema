@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/open-ui-schema/schemas/uischema.schema.json",
+  "title": "UISchema",
+  "description": "UI Schema v1.0.0 — Framework-agnostic JSON interface description format for AI code generation",
+  "type": "object",
+  "required": ["component"],
+  "properties": {
+    "component": {
+      "type": "string",
+      "description": "组件名称，如 page / button / input / checkbox / table / form / dialog 等",
+      "examples": ["page", "button", "input", "table", "form"]
+    },
+    "meta": {
+      "type": "object",
+      "description": "语义说明、设计意图和约束信息（不参与渲染）",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "组件描述"
+        },
+        "tags": {
+          "type": "array",
+          "description": "组件标签",
+          "items": { "type": "string" }
+        },
+        "remarks": {
+          "type": "array",
+          "description": "附加说明",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "props": {
+      "type": "object",
+      "description": "组件属性，直接映射到目标组件库的 props",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "统一文本属性，映射到目标组件的默认 slot"
+        },
+        "type": {
+          "type": "string",
+          "description": "组件类型，如 primary / default / success / warning / danger / info"
+        },
+        "size": {
+          "type": "string",
+          "description": "组件尺寸，映射规则见各框架适配文档"
+        }
+      },
+      "additionalProperties": true
+    },
+    "events": {
+      "type": "object",
+      "description": "组件事件绑定，键为事件名，值为处理函数名",
+      "additionalProperties": {
+        "type": "string",
+        "description": "事件处理函数名"
+      },
+      "examples": [{ "click": "handleSubmit" }, { "change": "onChange" }]
+    },
+    "bindings": {
+      "type": "object",
+      "description": "数据绑定，键为绑定目标，值为数据路径",
+      "additionalProperties": {
+        "type": "string",
+        "description": "数据路径"
+      },
+      "examples": [{"value": "formData.username"}, {"checked": "agreed"}]
+    },
+    "style": {
+      "type": "object",
+      "description": "视觉外观属性（Web 框架使用 CSS，XAML 框架使用依赖属性）",
+      "properties": {
+        "display": { "type": "string" },
+        "width": { "type": "string" },
+        "height": { "type": "string" },
+        "padding": { "type": "string" },
+        "margin": { "type": "string" },
+        "color": { "type": "string" },
+        "flex": { "type": ["number", "string"] },
+        "flex-direction": { "type": "string" },
+        "flex-wrap": { "type": "string" },
+        "justify-content": { "type": "string" },
+        "align-items": { "type": "string" },
+        "gap": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "layout": {
+      "type": "object",
+      "description": "组件在父容器中的定位规则（Web 使用 Flex，XAML 使用 Grid/Panel 属性）",
+      "properties": {
+        "justify-self": {
+          "type": "string",
+          "description": "主轴方向自对齐（UISchema 自定义，非标准 CSS），AI 应转换为 margin-*: auto 等等效实现",
+          "enum": ["flex-start", "flex-end", "center", "stretch"]
+        },
+        "align-self": {
+          "type": "string",
+          "description": "交叉轴方向自对齐（标准 CSS）",
+          "enum": ["flex-start", "flex-end", "center", "stretch", "baseline"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "children": {
+      "type": "array",
+      "description": "子组件列表",
+      "items": {
+        "$ref": "#"
+      }
+    }
+  },
+  "additionalProperties": true
+}

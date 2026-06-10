@@ -1,0 +1,43 @@
+# User Details Dialog
+dialog "User Details" [title=User Details, width=500px]
+    .meta User details dialog, showing user info and action buttons
+    .tags dialog, detail
+    .remark Fetch user details when dialog opens
+    .remark Layout top to bottom: title area, info display area, bottom action area
+
+    .bind data=detailDialogVisible
+    .close handleClose
+
+    card "Basic Info" [header=Basic Info]
+        row [gutter=20]
+            col [span=12]
+                descriptions [column=1, border]
+                    descriptions-item "Username" [label=Username]
+                        text
+                            .bind value=userDetail.username
+                    descriptions-item "Email" [label=Email]
+                        text
+                            .bind value=userDetail.email
+                    descriptions-item "Phone" [label=Phone]
+                        text
+                            .bind value=userDetail.phone
+            col [span=12]
+                descriptions [column=1, border]
+                    descriptions-item "Role" [label=Role]
+                        tag
+                            .bind value=userDetail.role
+                    descriptions-item "Status" [label=Status]
+                        tag
+                            .bind value=userDetail.status
+                    descriptions-item "Registration Time" [label=Registration Time]
+                        text
+                            .bind value=userDetail.createdAt
+
+    space [size=middle]
+        .layout bottom-right
+        button "Edit" [type=primary]
+            .click handleEdit
+        button "Disable Account" [type=warning]
+            .click handleDisable
+        button "Close"
+            .click handleClose

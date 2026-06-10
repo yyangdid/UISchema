@@ -1,0 +1,230 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "User management page with search form and result table",
+    "tags": ["manage", "list", "search"],
+    "remarks": [
+      "Search criteria area on top, table below",
+      "Table supports pagination"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "16px",
+    "padding": "20px"
+  },
+  "children": [
+    {
+      "component": "card",
+      "meta": {
+        "description": "Search criteria area",
+        "tags": ["search", "filter"]
+      },
+      "props": { "header": "Search Criteria" },
+      "children": [
+        {
+          "component": "form",
+          "props": {
+            "model": "searchForm",
+            "label-width": "80px"
+          },
+          "children": [
+            {
+              "component": "row",
+              "props": { "gutter": 20 },
+              "children": [
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "Username", "prop": "username" },
+                      "children": [
+                        {
+                          "component": "input",
+                          "props": { "placeholder": "Please enter username" },
+                          "bindings": {
+                            "value": "searchForm.username"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "Status", "prop": "status" },
+                      "children": [
+                        {
+                          "component": "select",
+                          "props": { "placeholder": "Please select status" },
+                          "bindings": {
+                            "value": "searchForm.status"
+                          },
+                          "children": [
+                            { "component": "option", "props": { "label": "All", "value": "" } },
+                            { "component": "option", "props": { "label": "Enabled", "value": "enabled" } },
+                            { "component": "option", "props": { "label": "Disabled", "value": "disabled" } }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "Role", "prop": "role" },
+                      "children": [
+                        {
+                          "component": "select",
+                          "props": { "placeholder": "Please select role" },
+                          "bindings": {
+                            "value": "searchForm.role"
+                          },
+                          "children": [
+                            { "component": "option", "props": { "label": "All", "value": "" } },
+                            { "component": "option", "props": { "label": "Admin", "value": "admin" } },
+                            { "component": "option", "props": { "label": "User", "value": "user" } }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "row",
+              "props": { "gutter": 20 },
+              "children": [
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "Created At", "prop": "dateRange" },
+                      "children": [
+                        {
+                          "component": "date-picker",
+                          "props": {
+                            "type": "daterange",
+                            "range-separator": "to",
+                            "start-placeholder": "Start date",
+                            "end-placeholder": "End date"
+                          },
+                          "bindings": {
+                            "value": "searchForm.dateRange"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { },
+                      "children": [
+                        {
+                          "component": "button",
+                          "props": { "text": "Search", "type": "primary" },
+                          "events": { "click": "handleSearch" }
+                        },
+                        {
+                          "component": "button",
+                          "props": { "text": "Reset" },
+                          "events": { "click": "handleReset" }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "card",
+      "meta": {
+        "description": "User list table",
+        "tags": ["table", "list"]
+      },
+      "props": { "header": "User List" },
+      "children": [
+        {
+          "component": "table",
+          "props": {
+            "border": true,
+            "stripe": true
+          },
+          "bindings": {
+            "data": "userList"
+          },
+          "children": [
+            { "component": "column", "props": { "type": "selection", "width": "50px" } },
+            { "component": "column", "props": { "label": "Username", "prop": "username" } },
+            { "component": "column", "props": { "label": "Nickname", "prop": "nickname" } },
+            { "component": "column", "props": { "label": "Email", "prop": "email" } },
+            {
+              "component": "column",
+              "props": { "label": "Status", "prop": "status" },
+              "children": [
+                {
+                  "component": "tag",
+                  "props": { "text": "Enabled", "type": "success" }
+                }
+              ]
+            },
+            {
+              "component": "column",
+              "props": { "label": "Actions", "fixed": "right", "width": "200px" },
+              "children": [
+                {
+                  "component": "button",
+                  "props": { "text": "Edit", "size": "small", "type": "primary" },
+                  "events": { "click": "handleEdit" }
+                },
+                {
+                  "component": "button",
+                  "props": { "text": "Delete", "size": "small", "type": "danger" },
+                  "events": { "click": "handleDelete" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "pagination",
+          "props": {
+            "page-size": 20,
+            "total": 100,
+            "layout": "total, sizes, prev, pager, next, jumper"
+          },
+          "bindings": {
+            "data": "pagination"
+          },
+          "events": {
+            "size-change": "handleSizeChange",
+            "current-change": "handleCurrentChange"
+          }
+        }
+      ]
+    }
+  ]
+}

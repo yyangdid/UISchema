@@ -1,0 +1,55 @@
+# User Management — Search Form + Result Table
+page [flex, padding=20]
+    .meta User management page with search form and result table
+    .tags manage, list, search
+    .remark Search criteria area on top, table below
+    .remark Table supports pagination
+
+    .style flex-direction=column, gap=16px
+
+    card "Search Criteria" [header=Search Criteria]
+        form [label-width=80px, model=searchForm]
+
+            row [gutter=20]
+                col [span=8]
+                    form-item "Username" [label=Username, prop=username]
+                        input [placeholder=Please enter username]
+                            .bind value=searchForm.username
+                col [span=8]
+                    form-item "Status" [label=Status, prop=status]
+                        select [placeholder=Please select status]
+                            .bind value=searchForm.status
+
+            row [gutter=20]
+                col [span=8]
+                    form-item "Created At" [label=Created At, prop=dateRange]
+                        date-picker [type=daterange]
+                            .bind value=searchForm.dateRange
+                col [span=8]
+                    form-item
+                        button "Search" [type=primary]
+                            .click handleSearch
+                        button "Reset"
+                            .click handleReset
+
+    card "User List" [header=User List]
+        table [border, stripe]
+            .bind data=userList
+
+            column [type=selection, width=50px]
+            column [label=Username, prop=username]
+            column [label=Nickname, prop=nickname]
+            column [label=Email, prop=email]
+            column [label=Status, prop=status]
+                tag "Enabled" [type=success]
+
+            column [label=Actions, fixed=right, width=200px]
+                button "Edit" [size=small, type=primary]
+                    .click handleEdit
+                button "Delete" [size=small, type=danger]
+                    .click handleDelete
+
+        pagination [page-size=20, total=100, layout=total, sizes, prev, pager, next, jumper]
+            .bind data=pagination
+            .size-change:size handleSizeChange
+            .current-change:current handleCurrentChange

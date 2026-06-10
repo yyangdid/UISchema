@@ -1,0 +1,99 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "Login page, centered login form card",
+    "tags": ["login", "auth"],
+    "remarks": [
+      "Form vertically and horizontally centered",
+      "Show error message on login failure"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "justify-content": "center",
+    "align-items": "center"
+  },
+  "children": [
+    {
+      "component": "card",
+      "meta": {
+        "description": "Login form card",
+        "tags": ["form", "login"]
+      },
+      "props": {
+        "header": "User Login",
+        "style": "width: 400px"
+      },
+      "children": [
+        {
+          "component": "form",
+          "props": {
+            "label-width": "80px",
+            "model": "loginForm"
+          },
+          "children": [
+            {
+              "component": "form-item",
+              "props": { "label": "Username", "prop": "username" },
+              "children": [
+                {
+                  "component": "input",
+                  "props": { "placeholder": "Please enter username" },
+                  "bindings": {
+                    "value": "loginForm.username"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { "label": "Password", "prop": "password" },
+              "children": [
+                {
+                  "component": "input",
+                  "props": {
+                    "type": "password",
+                    "placeholder": "Please enter password",
+                    "show-password": true
+                  },
+                  "bindings": {
+                    "value": "loginForm.password"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { },
+              "children": [
+                {
+                  "component": "checkbox",
+                  "props": { "text": "Remember password" },
+                  "bindings": {
+                    "checked": "loginForm.remember"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { },
+              "children": [
+                {
+                  "component": "button",
+                  "props": { "text": "Login", "type": "primary" },
+                  "events": { "click": "handleLogin" }
+                },
+                {
+                  "component": "button",
+                  "props": { "text": "Reset" },
+                  "events": { "click": "handleReset" }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

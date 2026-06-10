@@ -1,0 +1,55 @@
+# 用户管理页 — 搜索表单 + 结果表格
+page [flex, padding=20]
+    .meta 用户管理页面，包含搜索表单和结果表格
+    .tags manage, list, search
+    .remark 搜索条件区域在上方，表格在下方
+    .remark 表格支持分页
+
+    .style flex-direction=column, gap=16px
+
+    card "搜索条件" [header=搜索条件]
+        form [label-width=80px, model=searchForm]
+
+            row [gutter=20]
+                col [span=8]
+                    form-item "用户名" [label=用户名, prop=username]
+                        input [placeholder=请输入用户名]
+                            .bind value=searchForm.username
+                col [span=8]
+                    form-item "状态" [label=状态, prop=status]
+                        select [placeholder=请选择状态]
+                            .bind value=searchForm.status
+
+            row [gutter=20]
+                col [span=8]
+                    form-item "创建时间" [label=创建时间, prop=dateRange]
+                        date-picker [type=daterange]
+                            .bind value=searchForm.dateRange
+                col [span=8]
+                    form-item
+                        button "搜索" [type=primary]
+                            .click handleSearch
+                        button "重置"
+                            .click handleReset
+
+    card "用户列表" [header=用户列表]
+        table [border, stripe]
+            .bind data=userList
+
+            column [type=selection, width=50px]
+            column [label=用户名, prop=username]
+            column [label=昵称, prop=nickname]
+            column [label=邮箱, prop=email]
+            column [label=状态, prop=status]
+                tag "启用" [type=success]
+
+            column [label=操作, fixed=right, width=200px]
+                button "编辑" [size=small, type=primary]
+                    .click handleEdit
+                button "删除" [size=small, type=danger]
+                    .click handleDelete
+
+        pagination [page-size=20, total=100, layout=total, sizes, prev, pager, next, jumper]
+            .bind data=pagination
+            .size-change:size handleSizeChange
+            .current-change:current handleCurrentChange

@@ -1,0 +1,230 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "用户管理页面，包含搜索表单和结果表格",
+    "tags": ["manage", "list", "search"],
+    "remarks": [
+      "搜索条件区域在上方，表格在下方",
+      "表格支持分页"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "16px",
+    "padding": "20px"
+  },
+  "children": [
+    {
+      "component": "card",
+      "meta": {
+        "description": "搜索条件区域",
+        "tags": ["search", "filter"]
+      },
+      "props": { "header": "搜索条件" },
+      "children": [
+        {
+          "component": "form",
+          "props": {
+            "model": "searchForm",
+            "label-width": "80px"
+          },
+          "children": [
+            {
+              "component": "row",
+              "props": { "gutter": 20 },
+              "children": [
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "用户名", "prop": "username" },
+                      "children": [
+                        {
+                          "component": "input",
+                          "props": { "placeholder": "请输入用户名" },
+                          "bindings": {
+                            "value": "searchForm.username"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "状态", "prop": "status" },
+                      "children": [
+                        {
+                          "component": "select",
+                          "props": { "placeholder": "请选择状态" },
+                          "bindings": {
+                            "value": "searchForm.status"
+                          },
+                          "children": [
+                            { "component": "option", "props": { "label": "全部", "value": "" } },
+                            { "component": "option", "props": { "label": "启用", "value": "enabled" } },
+                            { "component": "option", "props": { "label": "禁用", "value": "disabled" } }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "角色", "prop": "role" },
+                      "children": [
+                        {
+                          "component": "select",
+                          "props": { "placeholder": "请选择角色" },
+                          "bindings": {
+                            "value": "searchForm.role"
+                          },
+                          "children": [
+                            { "component": "option", "props": { "label": "全部", "value": "" } },
+                            { "component": "option", "props": { "label": "管理员", "value": "admin" } },
+                            { "component": "option", "props": { "label": "普通用户", "value": "user" } }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "row",
+              "props": { "gutter": 20 },
+              "children": [
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "创建时间", "prop": "dateRange" },
+                      "children": [
+                        {
+                          "component": "date-picker",
+                          "props": {
+                            "type": "daterange",
+                            "range-separator": "至",
+                            "start-placeholder": "开始日期",
+                            "end-placeholder": "结束日期"
+                          },
+                          "bindings": {
+                            "value": "searchForm.dateRange"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 8 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { },
+                      "children": [
+                        {
+                          "component": "button",
+                          "props": { "text": "搜索", "type": "primary" },
+                          "events": { "click": "handleSearch" }
+                        },
+                        {
+                          "component": "button",
+                          "props": { "text": "重置" },
+                          "events": { "click": "handleReset" }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "card",
+      "meta": {
+        "description": "用户列表表格",
+        "tags": ["table", "list"]
+      },
+      "props": { "header": "用户列表" },
+      "children": [
+        {
+          "component": "table",
+          "props": {
+            "border": true,
+            "stripe": true
+          },
+          "bindings": {
+            "data": "userList"
+          },
+          "children": [
+            { "component": "column", "props": { "type": "selection", "width": "50px" } },
+            { "component": "column", "props": { "label": "用户名", "prop": "username" } },
+            { "component": "column", "props": { "label": "昵称", "prop": "nickname" } },
+            { "component": "column", "props": { "label": "邮箱", "prop": "email" } },
+            {
+              "component": "column",
+              "props": { "label": "状态", "prop": "status" },
+              "children": [
+                {
+                  "component": "tag",
+                  "props": { "text": "启用", "type": "success" }
+                }
+              ]
+            },
+            {
+              "component": "column",
+              "props": { "label": "操作", "fixed": "right", "width": "200px" },
+              "children": [
+                {
+                  "component": "button",
+                  "props": { "text": "编辑", "size": "small", "type": "primary" },
+                  "events": { "click": "handleEdit" }
+                },
+                {
+                  "component": "button",
+                  "props": { "text": "删除", "size": "small", "type": "danger" },
+                  "events": { "click": "handleDelete" }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "pagination",
+          "props": {
+            "page-size": 20,
+            "total": 100,
+            "layout": "total, sizes, prev, pager, next, jumper"
+          },
+          "bindings": {
+            "data": "pagination"
+          },
+          "events": {
+            "size-change": "handleSizeChange",
+            "current-change": "handleCurrentChange"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "patch": [
+    {
+      "op": "prepend",
+      "selector": "form",
+      "description": "在表单最前面插入记住密码复选框",
+      "children": [
+        {
+          "component": "form-item",
+          "children": [
+            {
+              "component": "checkbox",
+              "props": { "text": "记住密码" },
+              "bindings": { "checked": "form.remember" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "before",
+      "selector": "form > form-item[2]",
+      "description": "在用户名和密码之间插入邮箱",
+      "children": [
+        {
+          "component": "form-item",
+          "props": { "label": "邮箱", "prop": "email" },
+          "children": [
+            {
+              "component": "input",
+              "props": { "placeholder": "请输入邮箱" },
+              "bindings": { "value": "form.email" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "after",
+      "selector": "form > form-item[2]",
+      "description": "在密码后面插入验证码",
+      "children": [
+        {
+          "component": "form-item",
+          "props": { "label": "验证码", "prop": "captcha" },
+          "children": [
+            {
+              "component": "input",
+              "props": { "placeholder": "请输入验证码", "width": "120" },
+              "bindings": { "value": "form.captcha" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "op": "append",
+      "selector": "card",
+      "description": "将登录按钮追加到卡片底部",
+      "children": [
+        {
+          "component": "button",
+          "props": { "text": "登录", "type": "primary" },
+          "events": { "click": "handleLogin" }
+        }
+      ]
+    },
+    {
+      "op": "replace",
+      "selector": "card",
+      "description": "修改卡片标题",
+      "children": [
+        {
+          "component": "card",
+          "props": { "header": "用户登录", "width": "400" }
+        }
+      ]
+    }
+  ]
+}

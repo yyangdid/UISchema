@@ -1,0 +1,99 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "登录页面，居中展示登录表单卡片",
+    "tags": ["login", "auth"],
+    "remarks": [
+      "表单整体垂直水平居中",
+      "登录失败时显示错误提示"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "justify-content": "center",
+    "align-items": "center"
+  },
+  "children": [
+    {
+      "component": "card",
+      "meta": {
+        "description": "登录表单卡片",
+        "tags": ["form", "login"]
+      },
+      "props": {
+        "header": "用户登录",
+        "style": "width: 400px"
+      },
+      "children": [
+        {
+          "component": "form",
+          "props": {
+            "label-width": "80px",
+            "model": "loginForm"
+          },
+          "children": [
+            {
+              "component": "form-item",
+              "props": { "label": "用户名", "prop": "username" },
+              "children": [
+                {
+                  "component": "input",
+                  "props": { "placeholder": "请输入用户名" },
+                  "bindings": {
+                    "value": "loginForm.username"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { "label": "密码", "prop": "password" },
+              "children": [
+                {
+                  "component": "input",
+                  "props": {
+                    "type": "password",
+                    "placeholder": "请输入密码",
+                    "show-password": true
+                  },
+                  "bindings": {
+                    "value": "loginForm.password"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { },
+              "children": [
+                {
+                  "component": "checkbox",
+                  "props": { "text": "记住密码" },
+                  "bindings": {
+                    "checked": "loginForm.remember"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { },
+              "children": [
+                {
+                  "component": "button",
+                  "props": { "text": "登录", "type": "primary" },
+                  "events": { "click": "handleLogin" }
+                },
+                {
+                  "component": "button",
+                  "props": { "text": "重置" },
+                  "events": { "click": "handleReset" }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

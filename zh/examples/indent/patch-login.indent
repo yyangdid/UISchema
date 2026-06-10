@@ -1,0 +1,104 @@
+# 用户登录页 — patch 增量修改示例
+
+## 已有页面（缩进格式）
+
+```
+page
+    card "登录" [width=400]
+        form [label-width=80px]
+            form-item "用户名" [label=用户名, prop=username]
+                input [placeholder=请输入用户名]
+                    .bind value=form.username
+            form-item "密码" [label=密码, prop=password]
+                input [type=password, placeholder=请输入密码]
+                    .bind value=form.password
+```
+
+## 增量修改
+
+```patch
+# 在表单最前面插入记住密码复选框
+patch prepend form
+    form-item
+        checkbox "记住密码"
+            .bind checked=form.remember
+
+# 在用户名和密码之间插入邮箱
+patch before form > form-item[2]
+    form-item "邮箱" [label=邮箱, prop=email]
+        input [placeholder=请输入邮箱]
+            .bind value=form.email
+
+# 在密码后面插入验证码
+patch after form > form-item[2]
+    form-item "验证码" [label=验证码, prop=captcha]
+        input [placeholder=请输入验证码, width=120]
+            .bind value=form.captcha
+
+# 将登录按钮追加到卡片底部
+patch append card
+    button "登录" [type=primary]
+        .click handleLogin
+
+# 修改卡片标题
+patch replace card
+    card "用户登录" [width=400]
+
+# 删除重置按钮（如果有）
+# patch remove card > button[1]
+```
+
+## 修改后的完整页面
+
+```
+page
+    card "用户登录" [width=400]
+        form [label-width=80px]
+            form-item
+                checkbox "记住密码"
+                    .bind checked=form.remember
+            form-item "用户名" [label=用户名, prop=username]
+                input [placeholder=请输入用户名]
+                    .bind value=form.username
+            form-item "邮箱" [label=邮箱, prop=email]
+                input [placeholder=请输入邮箱]
+                    .bind value=form.email
+            form-item "密码" [label=密码, prop=password]
+                input [type=password, placeholder=请输入密码]
+                    .bind value=form.password
+            form-item "验证码" [label=验证码, prop=captcha]
+                input [placeholder=请输入验证码, width=120]
+                    .bind value=form.captcha
+        button "登录" [type=primary]
+            .click handleLogin
+```
+
+## JSON 格式
+
+```json
+{
+  "patch": [
+    { "op": "prepend", "selector": "form", "children": [
+      { "component": "form-item", "children": [
+        { "component": "checkbox", "props": { "text": "记住密码" }, "bindings": { "checked": "form.remember" } }
+      ]}
+    ]},
+    { "op": "before", "selector": "form > form-item[2]", "children": [
+      { "component": "form-item", "props": { "label": "邮箱", "prop": "email" }, "children": [
+        { "component": "input", "props": { "placeholder": "请输入邮箱" }, "bindings": { "value": "form.email" } }
+      ]}
+    ]},
+    { "op": "after", "selector": "form > form-item[2]", "children": [
+      { "component": "form-item", "props": { "label": "验证码", "prop": "captcha" }, "children": [
+        { "component": "input", "props": { "placeholder": "请输入验证码", "width": "120" }, "bindings": { "value": "form.captcha" } }
+      ]}
+    ]},
+    { "op": "append", "selector": "card", "children": [
+      { "component": "button", "props": { "text": "登录", "type": "primary" }, "events": { "click": "handleLogin" } }
+    ]},
+    { "op": "replace", "selector": "card", "children": [
+      { "component": "card", "props": { "header": "用户登录", "width": "400" } }
+    ]}
+  ]
+}
+```

@@ -1,0 +1,104 @@
+# User Login Page — Patch Incremental Modification Example
+
+## Existing Page (Indent Format)
+
+```
+page
+    card "Login" [width=400]
+        form [label-width=80px]
+            form-item "Username" [label=Username, prop=username]
+                input [placeholder=Please enter username]
+                    .bind value=form.username
+            form-item "Password" [label=Password, prop=password]
+                input [type=password, placeholder=Please enter password]
+                    .bind value=form.password
+```
+
+## Incremental Modifications
+
+```patch
+# Prepend remember-me checkbox at the top of form
+patch prepend form
+    form-item
+        checkbox "Remember me"
+            .bind checked=form.remember
+
+# Insert email between username and password
+patch before form > form-item[2]
+    form-item "Email" [label=Email, prop=email]
+        input [placeholder=Please enter email]
+            .bind value=form.email
+
+# Insert captcha after password
+patch after form > form-item[2]
+    form-item "Captcha" [label=Captcha, prop=captcha]
+        input [placeholder=Please enter captcha, width=120]
+            .bind value=form.captcha
+
+# Append login button to card
+patch append card
+    button "Login" [type=primary]
+        .click handleLogin
+
+# Replace card title
+patch replace card
+    card "User Login" [width=400]
+
+# Remove reset button (if exists)
+# patch remove card > button[1]
+```
+
+## Result After All Patches
+
+```
+page
+    card "User Login" [width=400]
+        form [label-width=80px]
+            form-item
+                checkbox "Remember me"
+                    .bind checked=form.remember
+            form-item "Username" [label=Username, prop=username]
+                input [placeholder=Please enter username]
+                    .bind value=form.username
+            form-item "Email" [label=Email, prop=email]
+                input [placeholder=Please enter email]
+                    .bind value=form.email
+            form-item "Password" [label=Password, prop=password]
+                input [type=password, placeholder=Please enter password]
+                    .bind value=form.password
+            form-item "Captcha" [label=Captcha, prop=captcha]
+                input [placeholder=Please enter captcha, width=120]
+                    .bind value=form.captcha
+        button "Login" [type=primary]
+            .click handleLogin
+```
+
+## JSON Format
+
+```json
+{
+  "patch": [
+    { "op": "prepend", "selector": "form", "children": [
+      { "component": "form-item", "children": [
+        { "component": "checkbox", "props": { "text": "Remember me" }, "bindings": { "checked": "form.remember" } }
+      ]}
+    ]},
+    { "op": "before", "selector": "form > form-item[2]", "children": [
+      { "component": "form-item", "props": { "label": "Email", "prop": "email" }, "children": [
+        { "component": "input", "props": { "placeholder": "Please enter email" }, "bindings": { "value": "form.email" } }
+      ]}
+    ]},
+    { "op": "after", "selector": "form > form-item[2]", "children": [
+      { "component": "form-item", "props": { "label": "Captcha", "prop": "captcha" }, "children": [
+        { "component": "input", "props": { "placeholder": "Please enter captcha", "width": "120" }, "bindings": { "value": "form.captcha" } }
+      ]}
+    ]},
+    { "op": "append", "selector": "card", "children": [
+      { "component": "button", "props": { "text": "Login", "type": "primary" }, "events": { "click": "handleLogin" } }
+    ]},
+    { "op": "replace", "selector": "card", "children": [
+      { "component": "card", "props": { "header": "User Login", "width": "400" } }
+    ]}
+  ]
+}
+```

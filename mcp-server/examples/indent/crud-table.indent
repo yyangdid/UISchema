@@ -1,0 +1,79 @@
+# Product Management CRUD
+page [flex, padding=20]
+    .meta Product management CRUD page, action buttons at top, product table as main content
+    .tags crud, product, manage
+    .remark Top button area left-aligned
+    .remark Dialog pops up when adding
+    .remark Table rows support edit and delete
+
+    .style flex-direction=column, gap=12px
+
+    row [gutter=12]
+        col
+            button "Add Product" [type=primary]
+                .click handleAdd
+            button "Batch Delete" [type=danger]
+                .click handleBatchDelete
+            button "Export"
+                .click handleExport
+
+    table [border, stripe, max-height=600px]
+        .bind data=productList
+
+        column [type=selection, width=50px]
+        column [label=Product ID, prop=id, width=100px]
+        column [label=Product Name, prop=name, min-width=200px]
+        column [label=Category, prop=category, width=120px]
+        column [label=Unit Price, prop=price, width=120px]
+        column [label=Stock, prop=stock, width=100px]
+
+        column [label=Status, prop=status, width=100px]
+            switch
+                .bind checked=scope.row.status
+                .change handleStatusChange
+
+        column [label=Actions, fixed=right, width=180px]
+            button "Edit" [size=small, type=primary]
+                .click handleEditRow
+            button "Delete" [size=small, type=danger]
+                .click handleDeleteRow
+
+    pagination [page-size=10, total=200, layout=total, sizes, prev, pager, next, jumper]
+        .bind data=pagination
+        .change:size handleSizeChange
+        .change:current handleCurrentChange
+
+    dialog "Add/Edit Product" [title=Add Product, width=600px]
+        .bind data=dialogVisible
+        .close handleDialogClose
+
+        form [label-width=100px, model=productForm]
+
+            form-item "Product Name" [label=Product Name, prop=name, required=true]
+                input [placeholder=Please enter product name]
+                    .bind value=productForm.name
+
+            form-item "Category" [label=Category, prop=category, required=true]
+                select [placeholder=Please select category]
+                    .bind value=productForm.category
+
+            row [gutter=20]
+                col [span=12]
+                    form-item "Unit Price" [label=Unit Price, prop=price, required=true]
+                        input-number [min=0, precision=2]
+                            .bind value=productForm.price
+                col [span=12]
+                    form-item "Stock" [label=Stock, prop=stock, required=true]
+                        input-number [min=0, precision=0]
+                            .bind value=productForm.stock
+
+            form-item "Description" [label=Description, prop=description]
+                input [type=textarea, rows=3, placeholder=Please enter product description]
+                    .bind value=productForm.description
+
+        row [flex, gap=10px, margin-top=20px]
+            .style justify-content=flex-end
+            button "Cancel"
+                .click handleCancel
+            button "Save" [type=primary]
+                .click handleSave

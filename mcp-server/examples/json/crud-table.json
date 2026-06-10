@@ -1,0 +1,277 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "Product management CRUD page, action buttons at top, product table as main content",
+    "tags": ["crud", "product", "manage"],
+    "remarks": [
+      "Top button area left-aligned",
+      "Dialog pops up when adding",
+      "Table rows support edit and delete"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "12px",
+    "padding": "20px"
+  },
+  "children": [
+    {
+      "component": "row",
+      "meta": {
+        "description": "Top toolbar",
+        "tags": ["toolbar"],
+        "remarks": ["Add button highlighted as primary"]
+      },
+      "props": { "gutter": 12 },
+      "children": [
+        {
+          "component": "col",
+          "children": [
+            {
+              "component": "button",
+              "props": { "text": "Add Product", "type": "primary" },
+              "events": { "click": "handleAdd" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "Batch Delete", "type": "danger" },
+              "events": { "click": "handleBatchDelete" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "Export" },
+              "events": { "click": "handleExport" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "table",
+      "meta": {
+        "description": "Product list table",
+        "tags": ["product", "table"]
+      },
+      "props": {
+        "border": true,
+        "stripe": true,
+        "max-height": "600px"
+      },
+      "bindings": {
+        "data": "productList"
+      },
+      "children": [
+        { "component": "column", "props": { "type": "selection", "width": "50px" } },
+        { "component": "column", "props": { "label": "Product ID", "prop": "id", "width": "100px" } },
+        { "component": "column", "props": { "label": "Product Name", "prop": "name", "min-width": "200px" } },
+        { "component": "column", "props": { "label": "Category", "prop": "category", "width": "120px" } },
+        { "component": "column", "props": { "label": "Unit Price", "prop": "price", "width": "120px" } },
+        { "component": "column", "props": { "label": "Stock", "prop": "stock", "width": "100px" } },
+        {
+          "component": "column",
+          "props": { "label": "Status", "prop": "status", "width": "100px" },
+          "children": [
+            {
+              "component": "switch",
+              "props": { "active-text": "Listed", "inactive-text": "Unlisted" },
+              "bindings": {
+                "checked": "scope.row.status"
+              },
+              "events": { "change": "handleStatusChange" }
+            }
+          ]
+        },
+        {
+          "component": "column",
+          "props": { "label": "Actions", "fixed": "right", "width": "180px" },
+          "children": [
+            {
+              "component": "button",
+              "props": { "text": "Edit", "size": "small", "type": "primary" },
+              "events": { "click": "handleEditRow" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "Delete", "size": "small", "type": "danger" },
+              "events": { "click": "handleDeleteRow" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "pagination",
+      "props": {
+        "page-size": 10,
+        "total": 200,
+        "layout": "total, sizes, prev, pager, next, jumper"
+      },
+      "bindings": {
+        "data": "pagination"
+      },
+      "events": {
+        "size-change": "handleSizeChange",
+        "current-change": "handleCurrentChange"
+      }
+    },
+    {
+      "component": "dialog",
+      "meta": {
+        "description": "Add/Edit product dialog",
+        "tags": ["dialog", "form"],
+        "remarks": [
+          "Dialog title changes dynamically based on edit/add mode",
+          "Form includes basic validation"
+        ]
+      },
+      "props": {
+        "title": "Add Product",
+        "width": "600px"
+      },
+      "bindings": {
+        "open": "dialogVisible"
+      },
+      "events": {
+        "close": "handleDialogClose"
+      },
+      "children": [
+        {
+          "component": "form",
+          "props": {
+            "label-width": "100px",
+            "model": "productForm",
+            "rules": "formRules"
+          },
+          "children": [
+            {
+              "component": "form-item",
+              "props": { "label": "Product Name", "prop": "name", "required": true },
+              "children": [
+                {
+                  "component": "input",
+                  "props": { "placeholder": "Please enter product name" },
+                  "bindings": {
+                    "value": "productForm.name"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { "label": "Category", "prop": "category", "required": true },
+              "children": [
+                {
+                  "component": "select",
+                  "props": { "placeholder": "Please select category" },
+                  "bindings": {
+                    "value": "productForm.category"
+                  },
+                  "children": [
+                    { "component": "option", "props": { "label": "Electronics", "value": "electronics" } },
+                    { "component": "option", "props": { "label": "Clothing", "value": "clothing" } },
+                    { "component": "option", "props": { "label": "Food", "value": "food" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "row",
+              "props": { "gutter": 20 },
+              "children": [
+                {
+                  "component": "col",
+                  "props": { "span": 12 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "Unit Price", "prop": "price", "required": true },
+                      "children": [
+                        {
+                          "component": "input-number",
+                          "props": {
+                            "min": 0,
+                            "precision": 2,
+                            "placeholder": "0.00"
+                          },
+                          "bindings": {
+                            "value": "productForm.price"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 12 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "Stock", "prop": "stock", "required": true },
+                      "children": [
+                        {
+                          "component": "input-number",
+                          "props": {
+                            "min": 0,
+                            "precision": 0,
+                            "placeholder": "0"
+                          },
+                          "bindings": {
+                            "value": "productForm.stock"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { "label": "Description", "prop": "description" },
+              "children": [
+                {
+                  "component": "input",
+                  "props": {
+                    "type": "textarea",
+                    "rows": 3,
+                    "placeholder": "Please enter product description"
+                  },
+                  "bindings": {
+                    "value": "productForm.description"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "row",
+          "meta": {
+            "description": "Dialog footer buttons",
+            "tags": ["dialog-footer"]
+          },
+          "style": {
+            "display": "flex",
+            "justify-content": "flex-end",
+            "gap": "10px",
+            "margin-top": "20px"
+          },
+          "children": [
+            {
+              "component": "button",
+              "props": { "text": "Cancel" },
+              "events": { "click": "handleCancel" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "Save", "type": "primary" },
+              "events": { "click": "handleSave" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

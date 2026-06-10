@@ -1,0 +1,27 @@
+{
+  "name": "@uischema/mcp",
+  "version": "1.0.0",
+  "description": "MCP server for UISchema — framework-agnostic UI description format for AI code generation",
+  "type": "module",
+  "bin": {
+    "uischema-mcp": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "UISchema.md",
+    "docs/",
+    "examples/",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["uischema", "ui", "mcp", "llm", "ai", "code-generation"],
+  "license": "MIT"
+}

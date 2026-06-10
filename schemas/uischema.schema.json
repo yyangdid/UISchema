@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/open-ui-schema/schemas/uischema.schema.json",
+  "title": "UISchema",
+  "description": "UI Schema v1.0.0 — Framework-agnostic JSON interface description format for AI code generation",
+  "type": "object",
+  "required": ["component"],
+  "properties": {
+    "component": {
+      "type": "string",
+      "description": "Component name, e.g. page / button / input / checkbox / table / form / dialog, etc.",
+      "examples": ["page", "button", "input", "table", "form"]
+    },
+    "meta": {
+      "type": "object",
+      "description": "Semantic description, design intent, and constraint information (does not participate in rendering)",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Component description"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Component tags",
+          "items": { "type": "string" }
+        },
+        "remarks": {
+          "type": "array",
+          "description": "Additional notes",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "props": {
+      "type": "object",
+      "description": "Component properties, directly mapped to the target component library's props",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Unified text property, mapped to the target component's default slot"
+        },
+        "type": {
+          "type": "string",
+          "description": "Component type, e.g. primary / default / success / warning / danger / info"
+        },
+        "size": {
+          "type": "string",
+          "description": "Component size, see each framework's adaptation documentation for mapping rules"
+        }
+      },
+      "additionalProperties": true
+    },
+    "events": {
+      "type": "object",
+      "description": "Component event bindings, key is event name, value is handler function name",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Event handler function name"
+      },
+      "examples": [{ "click": "handleSubmit" }, { "change": "onChange" }]
+    },
+    "bindings": {
+      "type": "object",
+      "description": "Data bindings, key is binding target, value is data path",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Data path"
+      },
+      "examples": [{"value": "formData.username"}, {"checked": "agreed"}]
+    },
+    "style": {
+      "type": "object",
+      "description": "Visual appearance properties (Web frameworks use CSS, XAML frameworks use dependency properties)",
+      "properties": {
+        "display": { "type": "string" },
+        "width": { "type": "string" },
+        "height": { "type": "string" },
+        "padding": { "type": "string" },
+        "margin": { "type": "string" },
+        "color": { "type": "string" },
+        "flex": { "type": ["number", "string"] },
+        "flex-direction": { "type": "string" },
+        "flex-wrap": { "type": "string" },
+        "justify-content": { "type": "string" },
+        "align-items": { "type": "string" },
+        "gap": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "layout": {
+      "type": "object",
+      "description": "Component positioning rules within the parent container (Web uses Flex, XAML uses Grid/Panel properties)",
+      "properties": {
+        "justify-self": {
+          "type": "string",
+          "description": "Self-alignment on the main axis (UISchema custom, non-standard CSS), AI should convert to margin-*: auto and other equivalent implementations",
+          "enum": ["flex-start", "flex-end", "center", "stretch"]
+        },
+        "align-self": {
+          "type": "string",
+          "description": "Self-alignment on the cross axis (standard CSS)",
+          "enum": ["flex-start", "flex-end", "center", "stretch", "baseline"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "children": {
+      "type": "array",
+      "description": "List of child components",
+      "items": {
+        "$ref": "#"
+      }
+    }
+  },
+  "additionalProperties": true
+}

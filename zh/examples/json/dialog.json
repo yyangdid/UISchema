@@ -1,0 +1,106 @@
+{
+  "component": "dialog",
+  "meta": {
+    "description": "用户详情弹窗，展示用户信息和操作按钮",
+    "tags": ["dialog", "detail"],
+    "remarks": [
+      "弹窗打开后获取用户详情数据",
+      "整体布局从上到下：标题区、信息展示区、底部操作区"
+    ]
+  },
+  "props": {
+    "title": "用户详情",
+    "width": "500px"
+  },
+  "bindings": {
+    "open": "detailDialogVisible"
+  },
+  "events": {
+    "close": "handleClose"
+  },
+  "children": [
+    {
+      "component": "card",
+      "meta": {
+        "description": "基本信息卡片",
+        "tags": ["info", "card"]
+      },
+      "props": {
+        "header": "基本信息"
+      },
+      "children": [
+        {
+          "component": "row",
+          "props": { "gutter": 20 },
+          "children": [
+            {
+              "component": "col",
+              "props": { "span": 12 },
+              "children": [
+                {
+                  "component": "descriptions",
+                  "props": { "column": 1, "border": true },
+                  "children": [
+                    { "component": "descriptions-item", "props": { "label": "用户名" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.username }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "邮箱" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.email }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "手机号" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.phone }}" } } ] }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "col",
+              "props": { "span": 12 },
+              "children": [
+                {
+                  "component": "descriptions",
+                  "props": { "column": 1, "border": true },
+                  "children": [
+                    { "component": "descriptions-item", "props": { "label": "角色" }, "children": [ { "component": "tag", "props": { "text": "{{ userDetail.role }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "状态" }, "children": [ { "component": "tag", "props": { "text": "{{ userDetail.status === 'enabled' ? '启用' : '禁用' }}" } } ] },
+                    { "component": "descriptions-item", "props": { "label": "注册时间" }, "children": [ { "component": "text", "props": { "content": "{{ userDetail.createdAt }}" } } ] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "space",
+      "meta": {
+        "description": "底部操作按钮组",
+        "tags": ["action", "footer"],
+        "remarks": [
+          "按钮组居右对齐",
+          "确认按钮为 primary 类型"
+        ]
+      },
+      "props": {
+        "size": "middle"
+      },
+      "layout": {
+        "justify-self": "flex-end",
+        "align-self": "flex-end"
+      },
+      "children": [
+        {
+          "component": "button",
+          "props": { "text": "编辑", "type": "primary" },
+          "events": { "click": "handleEdit" }
+        },
+        {
+          "component": "button",
+          "props": { "text": "禁用账号", "type": "warning" },
+          "events": { "click": "handleDisable" }
+        },
+        {
+          "component": "button",
+          "props": { "text": "关闭" },
+          "events": { "click": "handleClose" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "component": "page",
+  "meta": {
+    "description": "商品管理 CRUD 页面，顶部有操作按钮，主体为商品表格",
+    "tags": ["crud", "product", "manage"],
+    "remarks": [
+      "顶部按钮区域左对齐",
+      "新增时弹出对话框",
+      "表格行支持编辑和删除"
+    ]
+  },
+  "style": {
+    "display": "flex",
+    "flex-direction": "column",
+    "gap": "12px",
+    "padding": "20px"
+  },
+  "children": [
+    {
+      "component": "row",
+      "meta": {
+        "description": "顶部操作栏",
+        "tags": ["toolbar"],
+        "remarks": ["新增按钮突出显示为 primary"]
+      },
+      "props": { "gutter": 12 },
+      "children": [
+        {
+          "component": "col",
+          "children": [
+            {
+              "component": "button",
+              "props": { "text": "新增商品", "type": "primary" },
+              "events": { "click": "handleAdd" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "批量删除", "type": "danger" },
+              "events": { "click": "handleBatchDelete" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "导出" },
+              "events": { "click": "handleExport" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "table",
+      "meta": {
+        "description": "商品列表表格",
+        "tags": ["product", "table"]
+      },
+      "props": {
+        "border": true,
+        "stripe": true,
+        "max-height": "600px"
+      },
+      "bindings": {
+        "data": "productList"
+      },
+      "children": [
+        { "component": "column", "props": { "type": "selection", "width": "50px" } },
+        { "component": "column", "props": { "label": "商品编号", "prop": "id", "width": "100px" } },
+        { "component": "column", "props": { "label": "商品名称", "prop": "name", "min-width": "200px" } },
+        { "component": "column", "props": { "label": "分类", "prop": "category", "width": "120px" } },
+        { "component": "column", "props": { "label": "单价", "prop": "price", "width": "120px" } },
+        { "component": "column", "props": { "label": "库存", "prop": "stock", "width": "100px" } },
+        {
+          "component": "column",
+          "props": { "label": "状态", "prop": "status", "width": "100px" },
+          "children": [
+            {
+              "component": "switch",
+              "props": { "active-text": "上架", "inactive-text": "下架" },
+              "bindings": {
+                "checked": "scope.row.status"
+              },
+              "events": { "change": "handleStatusChange" }
+            }
+          ]
+        },
+        {
+          "component": "column",
+          "props": { "label": "操作", "fixed": "right", "width": "180px" },
+          "children": [
+            {
+              "component": "button",
+              "props": { "text": "编辑", "size": "small", "type": "primary" },
+              "events": { "click": "handleEditRow" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "删除", "size": "small", "type": "danger" },
+              "events": { "click": "handleDeleteRow" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "pagination",
+      "props": {
+        "page-size": 10,
+        "total": 200,
+        "layout": "total, sizes, prev, pager, next, jumper"
+      },
+      "bindings": {
+        "data": "pagination"
+      },
+      "events": {
+        "size-change": "handleSizeChange",
+        "current-change": "handleCurrentChange"
+      }
+    },
+    {
+      "component": "dialog",
+      "meta": {
+        "description": "新增/编辑商品弹窗",
+        "tags": ["dialog", "form"],
+        "remarks": [
+          "弹窗标题根据编辑/新增动态变化",
+          "表单包含基础校验"
+        ]
+      },
+      "props": {
+        "title": "新增商品",
+        "width": "600px"
+      },
+      "bindings": {
+        "open": "dialogVisible"
+      },
+      "events": {
+        "close": "handleDialogClose"
+      },
+      "children": [
+        {
+          "component": "form",
+          "props": {
+            "label-width": "100px",
+            "model": "productForm",
+            "rules": "formRules"
+          },
+          "children": [
+            {
+              "component": "form-item",
+              "props": { "label": "商品名称", "prop": "name", "required": true },
+              "children": [
+                {
+                  "component": "input",
+                  "props": { "placeholder": "请输入商品名称" },
+                  "bindings": {
+                    "value": "productForm.name"
+                  }
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { "label": "分类", "prop": "category", "required": true },
+              "children": [
+                {
+                  "component": "select",
+                  "props": { "placeholder": "请选择分类" },
+                  "bindings": {
+                    "value": "productForm.category"
+                  },
+                  "children": [
+                    { "component": "option", "props": { "label": "电子产品", "value": "electronics" } },
+                    { "component": "option", "props": { "label": "服装", "value": "clothing" } },
+                    { "component": "option", "props": { "label": "食品", "value": "food" } }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "row",
+              "props": { "gutter": 20 },
+              "children": [
+                {
+                  "component": "col",
+                  "props": { "span": 12 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "单价", "prop": "price", "required": true },
+                      "children": [
+                        {
+                          "component": "input-number",
+                          "props": {
+                            "min": 0,
+                            "precision": 2,
+                            "placeholder": "0.00"
+                          },
+                          "bindings": {
+                            "value": "productForm.price"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "component": "col",
+                  "props": { "span": 12 },
+                  "children": [
+                    {
+                      "component": "form-item",
+                      "props": { "label": "库存", "prop": "stock", "required": true },
+                      "children": [
+                        {
+                          "component": "input-number",
+                          "props": {
+                            "min": 0,
+                            "precision": 0,
+                            "placeholder": "0"
+                          },
+                          "bindings": {
+                            "value": "productForm.stock"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "component": "form-item",
+              "props": { "label": "描述", "prop": "description" },
+              "children": [
+                {
+                  "component": "input",
+                  "props": {
+                    "type": "textarea",
+                    "rows": 3,
+                    "placeholder": "请输入商品描述"
+                  },
+                  "bindings": {
+                    "value": "productForm.description"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "row",
+          "meta": {
+            "description": "弹窗底部按钮",
+            "tags": ["dialog-footer"]
+          },
+          "style": {
+            "display": "flex",
+            "justify-content": "flex-end",
+            "gap": "10px",
+            "margin-top": "20px"
+          },
+          "children": [
+            {
+              "component": "button",
+              "props": { "text": "取消" },
+              "events": { "click": "handleCancel" }
+            },
+            {
+              "component": "button",
+              "props": { "text": "保存", "type": "primary" },
+              "events": { "click": "handleSave" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
