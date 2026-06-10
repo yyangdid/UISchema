@@ -1,6 +1,6 @@
 # @uischema/mcp
 
-MCP server for **UISchema** — a framework-agnostic UI description format for AI code generation.
+MCP server for [**UISchema**](https://github.com/yyangdid/UISchema) — a framework-agnostic UI description format for AI code generation.
 
 ## What is UISchema?
 
