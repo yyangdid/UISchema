@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.2 (2026-06-10)
+
+### Changed
+
+- Added GitHub repo URL link to mcp-server/README.md
+
+---
+
 ## v1.0.1 (2026-06-10)
 
 ### Changed
