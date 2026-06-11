@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.4 (2026-06-10)
+
+### Changed
+
+- Added all 6 patch operation examples (before/prepend/after/append/replace/remove) to README files
+
+---
+
 ## v1.0.3 (2026-06-10)
 
 ### Changed
