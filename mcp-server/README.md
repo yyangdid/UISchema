@@ -99,7 +99,7 @@ Add to your MCP client configuration:
   "mcpServers": {
     "uischema": {
       "command": "npx",
-      "args": ["-y", "@uischema/mcp"]
+      "args": ["-y", "@uischema/mcp@latest"]
     }
   }
 }

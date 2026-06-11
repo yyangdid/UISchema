@@ -88,7 +88,7 @@ UISchema 提供了 MCP 服务器（`@uischema/mcp`），AI 助手可以直接读
   "mcpServers": {
     "uischema": {
       "command": "npx",
-      "args": ["-y", "@uischema/mcp"]
+      "args": ["-y", "@uischema/mcp@latest"]
     }
   }
 }

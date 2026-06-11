@@ -91,7 +91,7 @@ UISchema provides an MCP server (`@uischema/mcp`) for AI assistants to read the 
   "mcpServers": {
     "uischema": {
       "command": "npx",
-      "args": ["-y", "@uischema/mcp"]
+      "args": ["-y", "@uischema/mcp@latest"]
     }
   }
 }
