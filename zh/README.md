@@ -62,7 +62,12 @@ UISchema 提供了 MCP 服务器（`@uischema/mcp`），AI 助手可以直接读
 }
 ```
 
-**工具：** `read_uischema_spec` · `list_frameworks` · `read_framework_adapter` · `read_example`
+| 工具 | 说明 |
+|------|------|
+| `read_uischema_spec` | 读取 UISchema 核心规范 — 节点结构、缩进语法、patch 语法、AI 规则、布局模型 |
+| `list_frameworks` | 列出所有支持的框架（Vue/Element Plus、Vue/Antdv Next、React/Ant Design、React/MUI、Avalonia） |
+| `read_framework_adapter` | 读取指定框架的适配文档 — 组件映射、属性/事件/绑定翻译、代码示例 |
+| `read_example` | 读取示例文件（JSON 或缩进格式），含 login、search-form、crud-table、dialog、patch-login |
 
 ## 快速开始
 

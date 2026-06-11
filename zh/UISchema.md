@@ -232,10 +232,13 @@ page [flex, padding=10]
 支持 **子事件修饰符**，用冒号分隔，适用于组件有多个同类事件的情况：
 
 ```
-.size-change:size handleSizeChange
-                            → events: { "size-change": "handleSizeChange" }
-.current-change:current handleCurrentChange
-                            → events: { "current-change": "handleCurrentChange" }
+.change:size handleSizeChange
+                            → events: { "change-size": "handleSizeChange" }
+                            → 框架适配层映射为 size-change
+
+.change:current handleCurrentChange
+                            → events: { "change-current": "handleCurrentChange" }
+                            → 框架适配层映射为 current-change
 ```
 
 ### 数据绑定

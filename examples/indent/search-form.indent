@@ -51,5 +51,5 @@ page [flex, padding=20]
 
         pagination [page-size=20, total=100, layout=total, sizes, prev, pager, next, jumper]
             .bind data=pagination
-            .size-change:size handleSizeChange
-            .current-change:current handleCurrentChange
+            .change:size handleSizeChange
+            .change:current handleCurrentChange

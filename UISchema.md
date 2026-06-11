@@ -232,10 +232,13 @@ Style property names use **native CSS property names** (kebab-case). AI converts
 Supports **sub-event modifiers**, separated by a colon, applicable when a component has multiple similar events:
 
 ```
-.size-change:size handleSizeChange
-                            → events: { "size-change": "handleSizeChange" }
-.current-change:current handleCurrentChange
-                            → events: { "current-change": "handleCurrentChange" }
+.change:size handleSizeChange
+                            → events: { "change-size": "handleSizeChange" }
+                            → framework adapter maps to size-change
+
+.change:current handleCurrentChange
+                            → events: { "change-current": "handleCurrentChange" }
+                            → framework adapter maps to current-change
 ```
 
 ### Data Binding

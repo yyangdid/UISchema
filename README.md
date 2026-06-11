@@ -65,7 +65,12 @@ UISchema provides an MCP server (`@uischema/mcp`) for AI assistants to read the 
 }
 ```
 
-**Tools:** `read_uischema_spec` · `list_frameworks` · `read_framework_adapter` · `read_example`
+| Tool | Description |
+|------|-------------|
+| `read_uischema_spec` | Read the UISchema core specification — node structure, indent syntax, patch syntax, AI rules, layout models |
+| `list_frameworks` | List all supported frameworks (Vue/Element Plus, Vue/Antdv Next, React/Ant Design, React/MUI, Avalonia) |
+| `read_framework_adapter` | Read adapter docs for a specific framework — component mappings, prop/event/binding translations, code examples |
+| `read_example` | Read example files in JSON or indent format (login, search-form, crud-table, dialog, patch-login) |
 
 ## Getting Started
 
