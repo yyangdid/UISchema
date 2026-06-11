@@ -45,12 +45,28 @@ Both formats are equally understood by AI. Output:
 Modify an existing UI without rewriting the whole description:
 
 ```patch
-# Insert a button between Confirm and Cancel
+# Insert before an element
+patch before space
+    input [placeholder=Search...]
+
+# Prepend at the beginning of a container
+patch prepend space
+    button "Reset" [size=small]
+
+# Insert after a specific element
 patch after space > button[1]
     button "Apply" [size=small]
         .click handleApply
 
-# Remove the Cancel button
+# Append at the end of a container
+patch append card
+    button "Submit" [type=primary]
+
+# Replace an element
+patch replace card
+    card "New Title" [width=400]
+
+# Remove an element
 patch remove space > button[2]
 ```
 

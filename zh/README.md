@@ -42,12 +42,28 @@ button "保存" [type=primary]
 无需重写整个页面，即可修改已有 UI：
 
 ```patch
-# 在确定和取消之间插入应用按钮
+# 在元素前面插入
+patch before space
+    input [placeholder=搜索...]
+
+# 在容器开头插入
+patch prepend space
+    button "重置" [size=small]
+
+# 在特定元素后面插入
 patch after space > button[1]
     button "应用" [size=small]
         .click handleApply
 
-# 删除取消按钮
+# 在容器末尾追加
+patch append card
+    button "提交" [type=primary]
+
+# 替换元素
+patch replace card
+    card "新标题" [width=400]
+
+# 删除元素
 patch remove space > button[2]
 ```
 
