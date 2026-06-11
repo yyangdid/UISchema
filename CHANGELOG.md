@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.0.3 (2026-06-10)
+
+### Changed
+
+- Fixed event colon syntax examples (`.change:size` not `.size-change:size`)
+- Improved MCP server tools description with detailed table in README
+
+---
+
 ## v1.0.2 (2026-06-10)
 
 ### Changed
