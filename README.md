@@ -40,6 +40,22 @@ Both formats are equally understood by AI. Output:
 <Button Content="Save" Click="OnSaveClick" />
 ```
 
+## Patch Example
+
+Modify an existing UI without rewriting the whole description:
+
+```patch
+# Insert a button between Confirm and Cancel
+patch after space > button[1]
+    button "Apply" [size=small]
+        .click handleApply
+
+# Remove the Cancel button
+patch remove space > button[2]
+```
+
+See `examples/` for more patch scenarios.
+
 ## Supported Frameworks
 
 | Framework | Adapter Doc |

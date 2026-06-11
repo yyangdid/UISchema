@@ -37,6 +37,22 @@ button "保存" [type=primary]
 <Button Content="保存" Click="OnSaveClick" />
 ```
 
+## Patch 示例
+
+无需重写整个页面，即可修改已有 UI：
+
+```patch
+# 在确定和取消之间插入应用按钮
+patch after space > button[1]
+    button "应用" [size=small]
+        .click handleApply
+
+# 删除取消按钮
+patch remove space > button[2]
+```
+
+更多 patch 场景见 `examples/` 目录。
+
 ## 支持的框架
 
 | 框架 | 适配文档 |

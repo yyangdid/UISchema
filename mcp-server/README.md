@@ -41,6 +41,20 @@ page [flex, padding=10]
 
 Both formats are equivalent and equally understood by AI.
 
+### Patch Example
+
+Modify an existing UI without rewriting the whole description:
+
+```patch
+# Insert a button between Confirm and Cancel
+patch after space > button[1]
+    button "Apply" [size=small]
+        .click handleApply
+
+# Remove the Cancel button
+patch remove space > button[2]
+```
+
 ## Supported Frameworks
 
 - Vue3 + Element Plus
