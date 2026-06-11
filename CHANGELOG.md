@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.5 (2026-06-10)
+
+### Changed
+
+- Updated MCP server config to `@latest` tag for auto-updates
+
+---
+
 ## v1.0.4 (2026-06-10)
 
 ### Changed

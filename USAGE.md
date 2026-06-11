@@ -11,7 +11,7 @@ Add to your MCP client configuration (Claude Desktop, Cursor, etc.):
   "mcpServers": {
     "uischema": {
       "command": "npx",
-      "args": ["-y", "@uischema/mcp"]
+      "args": ["-y", "@uischema/mcp@latest"]
     }
   }
 }
