@@ -11,7 +11,7 @@ UISchema 提供了一个本地 MCP 服务器，AI 助手可以通过它读取 UI
   "mcpServers": {
     "uischema": {
       "command": "npx",
-      "args": ["-y", "@uischema/mcp"]
+      "args": ["-y", "@uischema/mcp@latest"]
     }
   }
 }
